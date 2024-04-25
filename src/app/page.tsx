@@ -9,7 +9,7 @@ import Modal from "@/components/Modal";
 
 export default function Home() {
   useScreenSize();
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
   useEffect(() => {}, [showModal]);
   return (
     <main className="flex flex-col items-center justify-between px-4 pt-2 sm:p-12">
