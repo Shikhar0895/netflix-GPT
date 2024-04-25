@@ -11,9 +11,11 @@ import CustomCard from "./CustomCard";
 import useScreenSize from "@/hooks/useScreenSize";
 import { link } from "fs";
 
+type CategoryType = string[];
+
 const SecondarySection = () => {
-  const [category, setCategory] = useState(
-    JSON.parse(localStorage.getItem("moviedata"))
+  const [category, setCategory] = useState<CategoryType>(
+    JSON.parse(localStorage.getItem("moviedata")) || []
   );
 
   const { height, width } = useScreenSize();
