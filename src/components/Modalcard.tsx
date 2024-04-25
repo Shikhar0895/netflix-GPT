@@ -10,7 +10,8 @@ interface ModalCardProps {
   poster_path: string;
   title: string;
   overview: string;
-  cast: string;
+  cast?: string;
+  genres: number[];
 }
 
 const ModalCard: React.FC<ModalCardProps> = ({
