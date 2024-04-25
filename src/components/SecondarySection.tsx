@@ -11,12 +11,22 @@ import CustomCard from "./CustomCard";
 import useScreenSize from "@/hooks/useScreenSize";
 import { link } from "fs";
 
-type CategoryType = string[];
+type CategoryType = {
+  category: string;
+  data: MovieType[];
+};
+
+type MovieType = {
+  id: string;
+  poster_path: string;
+};
 
 const SecondarySection = () => {
-  const [category, setCategory] = useState<CategoryType>(
-    JSON.parse(localStorage.getItem("moviedata")) || []
-  );
+  const storedData = localStorage.getItem("moviedata");
+  const initialCategory: CategoryType[] = storedData
+    ? JSON.parse(storedData)
+    : [];
+  const [category, setCategory] = useState<CategoryType[]>(initialCategory);
 
   const { height, width } = useScreenSize();
 
@@ -44,7 +54,6 @@ const SecondarySection = () => {
                   className="basis-[40%] md:basis-[200px] lg:basis-[250px]"
                   onClick={() => {
                     console.log(item);
-                    localStorage.setItem("modalflag", "show");
                   }}
                 >
                   <CustomCard poster_path={item.poster_path} />
@@ -53,86 +62,13 @@ const SecondarySection = () => {
             </CarouselContent>
             {width > 768 ? (
               <>
-                {" "}
                 <CarouselPrevious />
                 <CarouselNext />
               </>
             ) : null}
           </Carousel>
-
-          {/* <CarouselContent>
-              {movie.map((item) => (
-                <CarouselItem
-                  key={item.id}
-                  className="basis-[40%] md:basis-[200px] lg:basis-[250px]"
-                  onClick={() => {
-                    console.log(item);
-                    localStorage.setItem("modalflag", "show");
-                  }}
-                >
-                  <CustomCard poster_path={item.poster_path} />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            {width > 768 ? (
-              <>
-                {" "}
-                <CarouselPrevious />
-                <CarouselNext />
-              </>
-            ) : null} */}
         </React.Fragment>
-        //   <Carousel
-        //   opts={{
-        //     align: "start",
-        //     slidesToScroll: 5,
-        //     loop: true,
-        //   }}
-        //   className="w-full"
-        //   key={category.category}
-        // >
-        //   <CarouselContent>
-        //   <CarouselItem
-        //         key={movie.id}
-        //         className="basis-[40%] md:basis-[200px] lg:basis-[250px]"
-        //         onClick={() => {
-        //           console.log(movie);
-        //         }}
-        //       >
-        //         <CustomCard poster_path={category.data.poster_path} />
-        //       </CarouselItem>
-        //     </CarouselContent></Carousel>
       ))}
-      {/* <Carousel
-        opts={{
-          align: "start",
-          slidesToScroll: 5,
-          loop: true,
-        }}
-        className="w-full"
-      >
-        <CarouselContent>
-          {data[0].data.map((movie) => (
-            <CarouselItem
-              key={movie.id}
-              className="basis-[40%] md:basis-[200px] lg:basis-[250px]"
-              onClick={() => {
-                console.log(movie);
-                localStorage.setItem("modalflag", "show");
-              }}
-            >
-              <CustomCard poster_path={movie.poster_path} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        {width > 768 ? (
-          <>
-            {" "}
-            <CarouselPrevious />
-            <CarouselNext />
-          </>
-        ) : null}
-      </Carousel> */}
     </div>
   );
 };
